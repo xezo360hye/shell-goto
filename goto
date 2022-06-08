@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+declare -a cmds=()
+while read; do
+	if [[ "$REPLY" =~ ^:\ label\ "$1"$ ]]; then
+		echo	  "┌──► Running commands:"
+		echo	  "│"
+		for cmd in "${cmds[@]:0:-1}"; do
+			echo  "│ $cmd"
+		done
+		echo	  "│"
+		echo -n	  "└──► Proceed [Y/n]? "
+		read -sk 1
+		echo
+		case "$REPLY" in
+			[yY$'\n'])
+				for cmd in "${cmds[@]:0:-1}"; do
+					eval "$cmd"
+				done
+				;;
+			*)
+				echo "Canceled."
+				;;
+		esac
+		exit
+	else
+		cmds=("$REPLY" "${cmds[@]}")
+	fi
+done < <(tac "$HISTFILE")
+
+echo "Label '$1' not found."
+exit 1
