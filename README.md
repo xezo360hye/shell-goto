@@ -15,6 +15,29 @@ chmod +x ~/bin/goto
 
 And that's all!
 
+## Shell-specific instructions
+
+For this tool to work you need to save your history to file dynamically, before each command execution. Methods differ from shell to shell
+
+### Zsh
+
+You need to add `setopt incappendhistory` to your Zsh config (e.g. `~/.zshrc`)
+
+### Bash
+
+For Bash you need to add the following code to your Bash config (e.g. `~/.bashrc`)
+
+```
+PROMPT_COMMAND='__prompt__=1'
+trap '__cmd__="$BASH_COMMAND"; [[ "$__prompt__" && "$__cmd___" != "$PROMPT_COMMAND" ]] && history -a; unset __prompt__' DEBUG
+```
+
+If you already use `$PROMPT_COMMAND` variable, you can use `+=` instead of `=`. Sometimes the variable is set but replacing it doesn't break anything
+
+### Other shells
+
+Many shells can support Bash variant. If it doesn't work in your case, you can search on the internet and if you find something useful please let me know by open new issue or sending a pull request
+
 # Usage
 
 1. Type `: label TEXT` before the command(s) you want to repeat
@@ -22,12 +45,6 @@ And that's all!
 2. Continue using your shells
 
 3. Type `goto TEXT` and press Y or Enter
-
-# Shells support
-
-Currently only Zsh is fully supported. You need to add `setopt incappendhistory` to your Zsh config (e.g. `~/.zshrc`)
-
-Bash does not have this feature. However, there's a workaround using `trap DEBUG` — see `BASH.md` for instruction (WIP)
 
 # How this works?
 
@@ -41,8 +58,6 @@ After that it shows you the commands and executes them if you confirm
 
 # TODOs
 
-[x] Add support for `: unlabel TEXT`
-
-[x] Add `-y` / `--yes` and `-s` / `--silent` options
-
-[x] Figure out how to make it for Bash and other shells
+- [] Add support for `: unlabel TEXT`
+- [] Add `-y` / `--yes` and `-s` / `--silent` options
+- [] Figure out how to make it for Bash and other shells
