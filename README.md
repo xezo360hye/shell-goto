@@ -25,7 +25,9 @@ You need to add `setopt incappendhistory` to your Zsh config (e.g. `~/.zshrc`)
 
 ### Bash
 
-For Bash you need to add the following code to your Bash config (e.g. `~/.bashrc`)
+As for now, I'm trying too fix one thing in Bash. If you want, you cat remove prompt ask and it will be working variant
+
+You will also need to add the following code to your Bash config (e.g. `~/.bashrc`)
 
 ```
 PROMPT_COMMAND='__prompt__=1'
@@ -37,6 +39,8 @@ If you already use `$PROMPT_COMMAND` variable, you can use `+=` instead of `=`. 
 ### Other shells
 
 Many shells can support Bash variant. If it doesn't work in your case, you can search on the internet and if you find something useful please let me know by open new issue or sending a pull request
+
+I'm also making the SH variant that will work everywhere so stay here for a while
 
 # Usage
 
